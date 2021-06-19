@@ -9,35 +9,69 @@ exports.createCapturedImage = (req, res) => {
     });
     return;
   }
+  const nid = req.body.nidProvided;
 
-  // Create a capturedImage
   const image = {
     image: req.body.image,
   };
   let capturedId;
   let personRowId;
+  let capResonseForUser;
   capturedImage
     .create(image)
     .then(async (response) => {
       capturedId = response.dataValues.id;
       console.log("When capture posted: ", capturedId);
-      
-      await axios
-        .post(`http://localhost:8012/api/person/create`, {
-          nidProvided: null,
-          confidenceScore: null,
-          status: null,
-          capturedImages_id: capturedId,
-        })
-        .then((res) => {
-          
-          personRowId = res.data.id;
-          console.log("Captured: ", res.data);
-          console.log("Captured post response: ", personRowId);
-        })
-        .catch((err) => console.log("error while posting to person api."));
 
-    res.json(personRowId)
+      if (nid !== null) {
+        await axios
+          .post(`http://localhost:8012/api/person/create`, {
+            nidProvided: nid,
+            confidenceScore: null,
+            status: null,
+            capturedImages_id: capturedId,
+          })
+          .then(async (res) => {
+            personRowId = res.data.id;
+            console.log("Captured: ", res.data);
+            console.log("Captured post response: ", personRowId);
+            await axios
+              .get(`http://localhost:8012/api/person/find/${personRowId}`)
+              .then((response) => {
+                capResonseForUser = response.data;
+                console.log("new data: ", capResonseForUser);
+              })
+              .catch((err) =>
+                console.log("error while retriving person data.")
+              );
+          })
+          .catch((err) => console.log("error while posting to person api."));
+      } else {
+        await axios
+          .post(`http://localhost:8012/api/person/create`, {
+            nidProvided: null,
+            confidenceScore: null,
+            status: null,
+            capturedImages_id: capturedId,
+          })
+          .then(async (res) => {
+            personRowId = res.data.id;
+            console.log("Captured: ", res.data);
+            console.log("Captured post response: ", personRowId);
+            await axios
+              .get(`http://localhost:8012/api/person/find/${personRowId}`)
+              .then((response) => {
+                capResonseForUser = response.data;
+                console.log("new data: ", capResonseForUser);
+              })
+              .catch((err) =>
+                console.log("error while retriving person data.")
+              );
+          })
+          .catch((err) => console.log("error while posting to person api."));
+      }
+
+      res.send(capResonseForUser);
     })
     .catch((err) => {
       res.status(500).send({

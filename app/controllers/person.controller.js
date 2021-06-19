@@ -2,17 +2,17 @@ const db = require("../models");
 const Person = db.persons;
 const axios = require("axios");
 exports.createPerson = async (req, res) => {
-  let imageId;
-  const providedNid = "1925";
-  await axios
-    .get(`http://localhost:8012/api/images/find/${providedNid}`)
-    .then((response) => {
-      console.log("Response: ", response.data);
-      const data = response.data;
-      data.map((image) => (imageId = image.id));
-      console.log("Image ID: ", imageId);
-    })
-    .catch((err) => console.log("Error while retriving image id"));
+  // let imageId;
+  // const providedNid = "1925";
+  // await axios
+  //   .get(`http://localhost:8012/api/images/find/${providedNid}`)
+  //   .then((response) => {
+  //     console.log("Response: ", response.data);
+  //     const data = response.data;
+  //     data.map((image) => (imageId = image.id));
+  //     console.log("Image ID: ", imageId);
+  //   })
+  //   .catch((err) => console.log("Error while retriving image id"));
 
   //Create a capturedImage
   // const person = {
