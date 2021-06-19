@@ -21,18 +21,21 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.images = require("../models/image.model.js")(sequelize, Sequelize);
-db.capturedImages = require("../models/capturedImage.model.js")(sequelize, Sequelize);
+db.capturedImages = require("../models/capturedImage.model.js")(
+  sequelize,
+  Sequelize
+);
 db.persons = require("../models/person.model.js")(sequelize, Sequelize);
 
 //nid image-person relationship
-db.images.belongsTo(db.persons, {
-  foreignKey: {
-    name: "images_id",
-    allowNull: false,
-  },
-});
+// db.persons.belongsTo(db.images, {
+//   foreignKey: {
+//     name: "images_id",
+//     allowNull: false,
+//   },
+// });
 
-db.capturedImages.belongsTo(db.persons, {
+db.persons.belongsTo(db.capturedImages, {
   foreignKey: {
     name: "capturedImages_id",
     allowNull: true,
@@ -40,4 +43,3 @@ db.capturedImages.belongsTo(db.persons, {
 });
 
 module.exports = db;
-

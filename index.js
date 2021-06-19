@@ -34,6 +34,7 @@ db.sequelize.sync();
 
 require("./app/routes/image.routes")(app);
 require("./app/routes/capturedImage.routes")(app);
+require("./app/routes/persons.routes")(app);
 
 app.listen(process.env.APP_PORT, () => {
   console.log(`Server running on port ${port}`)
