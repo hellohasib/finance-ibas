@@ -5,7 +5,7 @@ exports.createCapturedImage = (req, res) => {
   // Validate request
   if (!req.body.image) {
     res.status(400).send({
-      message: "Name can't be empty.",
+      message: "Captured Image field can't be empty.",
     });
     return;
   }
@@ -22,7 +22,7 @@ exports.createCapturedImage = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while creating the Permission.",
+        message: err.message || "Some error occurred while creating the Captured Image.",
       });
     });
 };
