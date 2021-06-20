@@ -16,7 +16,7 @@ exports.createCapturedImage = (req, res) => {
   };
   let capturedId;
   let personRowId;
-  let capResonseForUser;
+  let capResponseForUser;
   capturedImage
     .create(image)
     .then(async (response) => {
@@ -38,8 +38,8 @@ exports.createCapturedImage = (req, res) => {
             await axios
               .get(`http://localhost:8012/api/person/find/${personRowId}`)
               .then((response) => {
-                capResonseForUser = response.data;
-                console.log("new data: ", capResonseForUser);
+                capResponseForUser = response.data;
+                console.log("new data: ", capResponseForUser);
               })
               .catch((err) =>
                 console.log("error while retriving person data.")
@@ -61,8 +61,8 @@ exports.createCapturedImage = (req, res) => {
             await axios
               .get(`http://localhost:8012/api/person/find/${personRowId}`)
               .then((response) => {
-                capResonseForUser = response.data;
-                console.log("new data: ", capResonseForUser);
+                capResponseForUser = response.data;
+                console.log("new data: ", capResponseForUser);
               })
               .catch((err) =>
                 console.log("error while retriving person data.")
