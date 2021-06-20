@@ -10,5 +10,6 @@ module.exports = function (app) {
     });
     
     app.post("/api/images/upload", capturedImages.createCapturedImage);
+    app.get("/api/images/captured/find/:id", capturedImages.findOneCapturedImage);
 
 };

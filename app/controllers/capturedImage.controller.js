@@ -81,3 +81,17 @@ exports.createCapturedImage = (req, res) => {
       });
     });
 };
+
+exports.findOneCapturedImage = (req, res) => {
+  const id = req.params.id;
+
+  capturedImage.findByPk(id)
+    .then((image) => {
+      res.send(image);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: `Error retrieving Captured Image with id =  ${id}`,
+      });
+    });
+};
