@@ -4,7 +4,6 @@ module.exports = {
     PASSWORD: process.env.DB_PASS,
     DB: process.env.MYSQL_DB,
     dialect: "mysql",
-    socketPath: "/var/run/mysqld/mysqld.sock",
     pool: {
       max: 5,
       min: 0,

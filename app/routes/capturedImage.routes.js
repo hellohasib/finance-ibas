@@ -9,7 +9,7 @@ module.exports = function (app) {
         next();
     });
     
-    app.post("/api/images/upload", capturedImages.createCapturedImage);
+    app.post("/api/images/upload/", capturedImages.createCapturedImage);
     app.get("/api/images/captured/find/:id", capturedImages.findOneCapturedImage);
 
 };

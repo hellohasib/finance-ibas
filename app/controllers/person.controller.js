@@ -45,6 +45,7 @@ exports.getAllPersons = (req, res) => {
   Person.findAll()
     .then((persons) => {
       res.send(persons);
+      console.log("persons: ", persons);
     })
     .catch((err) => {
       res.status(400).send({ message: err.message });

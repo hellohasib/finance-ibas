@@ -1,28 +1,20 @@
-const express = require('express');
+const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-require('dotenv').config();
+require("dotenv").config();
 global.__basedir = __dirname;
 const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-var corsOptions = {
-    origin: "http://localhost:8081"
-  };
-  
-app.use(cors(corsOptions));
-  
-  // parse requests of content-type - application/json
-app.use(bodyParser.json());
-  
-  // parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
-  
-  // simple route
+// simple route
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to Finance Pensioneer Life Verification application." });
+  res.json({
+    message: "Welcome to Finance Pensioneer Life Verification application.",
+  });
 });
-  
 
 const port = process.env.APP_PORT;
 
@@ -37,5 +29,5 @@ require("./app/routes/capturedImage.routes")(app);
 require("./app/routes/persons.routes")(app);
 
 app.listen(process.env.APP_PORT, () => {
-  console.log(`Server running on port ${port}`)
+  console.log(`Server running on port ${port}`);
 });

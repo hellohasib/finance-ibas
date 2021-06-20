@@ -17,6 +17,7 @@ exports.createCapturedImage = (req, res) => {
   let capturedId;
   let personRowId;
   let capResponseForUser;
+  
   capturedImage
     .create(image)
     .then(async (response) => {
@@ -84,10 +85,12 @@ exports.createCapturedImage = (req, res) => {
 
 exports.findOneCapturedImage = (req, res) => {
   const id = req.params.id;
-
+  let imageBase64;
   capturedImage.findByPk(id)
-    .then((image) => {
-      res.send(image);
+    .then((response) => {
+      res.send(response);
+      imageBase64 = response.image.toString('base64');
+      console.log("Here.", imageBase64);
     })
     .catch((err) => {
       res.status(500).send({
