@@ -72,7 +72,7 @@ exports.createCapturedImage = (req, res) => {
           .catch((err) => console.log("error while posting to person api."));
       }
 
-      res.send(capResonseForUser);
+      res.send(capResponseForUser);
     })
     .catch((err) => {
       res.status(500).send({
