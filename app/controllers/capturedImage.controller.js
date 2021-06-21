@@ -17,7 +17,7 @@ exports.createCapturedImage = (req, res) => {
   let capturedId;
   let personRowId;
   let capResponseForUser;
-  
+
   capturedImage
     .create(image)
     .then(async (response) => {
@@ -36,6 +36,16 @@ exports.createCapturedImage = (req, res) => {
             personRowId = res.data.id;
             console.log("Captured: ", res.data);
             console.log("Captured post response: ", personRowId);
+            await axios
+              .post(`http://192.168.0.102:5000/`, {
+                id: personRowId,
+                nidProvided: nid,
+                image: req.body.image,
+              })
+              .then((response) => {
+                console.log("Res image processing: ", response);
+              })
+              .catch((err) => console.log(`Error ${err}`));
             await axios
               .get(`http://localhost:8012/api/person/find/${personRowId}`)
               .then((response) => {
@@ -60,6 +70,16 @@ exports.createCapturedImage = (req, res) => {
             console.log("Captured: ", res.data);
             console.log("Captured post response: ", personRowId);
             await axios
+              .post(`http://192.168.0.102:5000/`, {
+                id: personRowId,
+                nidProvided: null,
+                image: req.body.image,
+              })
+              .then((response) => {
+                console.log("Res image processing: ", response);
+              })
+              .catch((err) => console.log(`Error ${err}`));
+            await axios
               .get(`http://localhost:8012/api/person/find/${personRowId}`)
               .then((response) => {
                 capResponseForUser = response.data;
@@ -69,7 +89,7 @@ exports.createCapturedImage = (req, res) => {
                 console.log("error while retriving person data.")
               );
           })
-          .catch((err) => console.log("error while posting to person api."));
+          .catch((err) => console.log(`error ${err} while posting to person api.`));
       }
 
       res.send(capResponseForUser);
@@ -86,10 +106,11 @@ exports.createCapturedImage = (req, res) => {
 exports.findOneCapturedImage = (req, res) => {
   const id = req.params.id;
   let imageBase64;
-  capturedImage.findByPk(id)
+  capturedImage
+    .findByPk(id)
     .then((response) => {
       res.send(response);
-      imageBase64 = response.image.toString('base64');
+      imageBase64 = response.image.toString("base64");
       console.log("Here.", imageBase64);
     })
     .catch((err) => {

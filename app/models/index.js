@@ -1,6 +1,7 @@
 const config = require("../config/db.config.js");
 
 const Sequelize = require("sequelize");
+const { DB } = require("../config/db.config.js");
 const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
   host: config.HOST,
 
@@ -26,15 +27,6 @@ db.capturedImages = require("../models/capturedImage.model.js")(
   Sequelize
 );
 db.persons = require("../models/person.model.js")(sequelize, Sequelize);
-
-//nid image-person relationship
-// db.persons.belongsTo(db.images, {
-//   foreignKey: {
-//     name: "images_id",
-//     allowNull: false,
-//   },
-// });
-
 db.persons.belongsTo(db.capturedImages, {
   foreignKey: {
     name: "capturedImages_id",
