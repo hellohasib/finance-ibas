@@ -109,9 +109,10 @@ exports.findOneCapturedImage = (req, res) => {
   capturedImage
     .findByPk(id)
     .then((response) => {
-      res.send(response);
+      
       imageBase64 = response.image.toString("base64");
       console.log("Here.", imageBase64);
+      res.send(imageBase64);
     })
     .catch((err) => {
       res.status(500).send({
