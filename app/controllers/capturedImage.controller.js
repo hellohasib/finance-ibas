@@ -37,7 +37,7 @@ exports.createCapturedImage = (req, res) => {
             console.log("Captured: ", res.data);
             console.log("Captured post response: ", personRowId);
             await axios
-              .post(`http://35.199.177.12:5000/`, {
+              .post(`http://35.221.177.90:5000/`, {
                 id: personRowId,
                 nidProvided: nid,
                 image: req.body.image,
@@ -70,7 +70,7 @@ exports.createCapturedImage = (req, res) => {
             console.log("Captured: ", res.data);
             console.log("Captured post response: ", personRowId);
             await axios
-              .post(`http://35.199.177.12:5000/`, {
+              .post(`http://35.221.177.90:5000/`, {
                 id: personRowId,
                 nidProvided: null,
                 image: req.body.image,
